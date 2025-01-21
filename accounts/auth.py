@@ -1,8 +1,8 @@
 from accounts.models import User
-from django.contrib.auth import check_password, make_password
+from django.contrib.auth.hashers import check_password, make_password
 
 class Authentication:
-    def signin(self, email: str, password: str,) -> User | bool:
+    def signin(self, email: str, password: str) -> User | bool:
         user = User.objects.filter(email=email).first()
 
         if user and check_password(password, user.password):
@@ -10,7 +10,7 @@ class Authentication:
 
         return False
 
-    def signup(self,name: str, email: str, password: str) -> User | bool:
+    def signup(self, name: str, email: str, password: str) -> User | bool:
         if User.objects.filter(email=email).exists():
             return False
 
